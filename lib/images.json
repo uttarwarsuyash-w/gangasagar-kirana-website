@@ -1,0 +1,131 @@
+{
+ "products/01-peanuts": {
+  "w": 510,
+  "h": 510,
+  "widths": [
+   480,
+   510
+  ],
+  "blur": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQAgCdASoQABAAA4BaJZgCdAdwLeMuz7/bpoAAyfwRG+/L4iLkZZqC+2dV0Obm1bqq3AXanAnwI97ZPfSV6TetcasIM5A9T9YHWg1u1ES2h5H4N18TMd2lMGk4gpMn5HYQ3ZMgAAA=",
+  "source": "store"
+ },
+ "products/02-roasted-chana-with-salt": {
+  "w": 459,
+  "h": 459,
+  "widths": [
+   459
+  ],
+  "blur": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQABAAA4BaJQBOgMXcu63hD6MUAAD+tlmLjlzAHQzQvGxbFPo2efrvoCzanYcf9mS5Uq1tdiwtnZFPNeN2VfsfzM1VsIC9qJI1TEysvYvl6ZV2FWQhVnCmmiMNGdk7xAAAAA==",
+  "source": "store"
+ },
+ "products/03-roasted-chana-without-salt": {
+  "w": 459,
+  "h": 459,
+  "widths": [
+   459
+  ],
+  "blur": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABQAgCdASoQABAAA4BaJbACdLoAEIqOst9g0XAAy0i8AGM6tI5MJMusQUOmAK1v1Mg4mzGiF8y5QcjBLFaAbz7zms7JVqEax3iFAjuHeCcTak+HTW71GEu5Asgj0dyQssfRsJBZ18d3Fbzv0AKpzzfZLJo/iw1/B4AAAA==",
+  "source": "store"
+ },
+ "products/04-masala-green-peas": {
+  "w": 459,
+  "h": 459,
+  "widths": [
+   459
+  ],
+  "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQAgCdASoQABAAA4BaJbACdAYsFdyBTzeAAM1wcxI39fq1P32NPbKbYK5AaC57SS4SCPYSP2v8hNCu6q9OwPSMqLkdHRod6Ry0v8LWpUPy+0ugjaQcQThzdge9cUfS8IyqVg/c32R+iplqoAA=",
+  "source": "store"
+ },
+ "products/05-roasted-yellow-peas": {
+  "w": 459,
+  "h": 459,
+  "widths": [
+   459
+  ],
+  "blur": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAwAgCdASoQABAAA4BaJbACdLoAAkcXrL/pQADN6ABUxhZAoTo4FfnAYGvUbq6lb0R1ipkEz7/XC2z8PS6hBEJCfXR4dgapA5A+rR8Ov/gN19gd4/xQCg58AAA=",
+  "source": "store"
+ },
+ "products/06-orange-candy": {
+  "w": 510,
+  "h": 510,
+  "widths": [
+   480,
+   510
+  ],
+  "blur": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQABAAA4BaJagCdLoAAXouAAD8poeodlB8M45fhIauMK22t7o2VRcbZOTUe7v+N5vNa1v9XYnwnywAAAA=",
+  "source": "store"
+ },
+ "products/07-rk-peanut-chikki": {
+  "w": 459,
+  "h": 459,
+  "widths": [
+   459
+  ],
+  "blur": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoQABAAA4BaJbACdADwVryzaJDgAADiVloQOFoaAO5DY1N3xujYfVql4amNRAiP0Q4DC4LHjdXEpv+rtBhhl+1pgaFFSfe3ugnY9cXRK6i3IweZtWkRtfRjQwwZWHV5FFPwAA==",
+  "source": "store"
+ },
+ "leadership/gangadhar": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   480,
+   960,
+   1254
+  ],
+  "blur": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAACwAgCdASoQABAAA4BaJQBOkBLwWBStY83jUUOdNjAA/vG+IpjkluWaIdw1wjT2HpDymXJufXwrBerwoX5P7qeXpTQHii4ZISnUIP31KCuvmamVvBt6O1lrIHLvy3FQkgEl+71pnDTxW3H83B6oOfEp7X1mFyzBfM3rB9696zosOSuBtaJNxgAA",
+  "source": "store"
+ },
+ "leadership/laxmikant": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   480,
+   960,
+   1254
+  ],
+  "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwAgCdASoQABAAA4BaJYwCdAYxFqoeaFhATnagAP7xviTya2aXI/IfjtV1HewQOPjN52mZBET1C9ijRSjrW1kA+Ugde2spKyW/52AvyvAIccQnT82KmBrToELm9Roxw14faqf5Puq4gFmG9qL1S7mBU0snhwW5qn7T7b8QcXiZXYS7rM8FyG0GMAA=",
+  "source": "store"
+ },
+ "shop/interior": {
+  "w": 1360,
+  "h": 1020,
+  "widths": [
+   480,
+   960,
+   1360
+  ],
+  "blur": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAQCdASoQAAwAA4BaJbACdADDyWF8V3wA/LQZ6gyIGOLz32nJoCu4hR2zuVuTNqurSfT/5OVk2Ygb1B3H6QTnYcCYLFWzI1kPIpm17Fr7nAou/TxBgZ/p27PphDn4QAA=",
+  "source": "store"
+ },
+ "journey/1-beginning": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ],
+  "blur": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABwAQCdASoQAAwAA4BaJQAAUJaYAAD+6siLUKI/5LVcj2K1lxZRaivC/CxKslt9+ZuJnDtKTFy+/tQKn2Zxf4m4+bjIPt0T7aJN4S6X6NiAAA==",
+  "source": "store"
+ },
+ "journey/2-renovated": {
+  "w": 1360,
+  "h": 765,
+  "widths": [
+   480,
+   960,
+   1360
+  ],
+  "blur": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoQAAkAA4BaJZQCdAEN+NWFK5AA/uvFwY5my+T6r/SblPMY/lk3qifumv2cEdhWk1x4ugpv0/d+kRZAGLwAmT7pfIgvtAAA",
+  "source": "store"
+ },
+ "journey/3-today": {
+  "w": 459,
+  "h": 608,
+  "widths": [
+   459
+  ],
+  "blur": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JYwAAYe4AcDw11K7nM1CpAAD+W2+zFYcIM+zGXto7NMlrR//xEoc+uFqTcvgGnMdHmWfMn863L5iQ4HHrSG5ytFnRp4x0yxPsdZO7aq43L+kQniJF4YAA",
+  "source": "store"
+ }
+}

@@ -6,7 +6,6 @@ const config: NextConfig = {
   images: { unoptimized: true },
   reactStrictMode: true,
   poweredByHeader: false,
-  experimental: { viewTransition: true },
 }
 
 export default config
