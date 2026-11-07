@@ -1,6 +1,8 @@
-// Verified business facts from the brief (section 2). Admins can override them in Settings;
-// the static build uses these values, live pages read the settings table.
-export const SITE = {
+import remote from '@/content/remote.json'
+
+// Verified business facts from the brief (section 2). Admins can change them in Settings;
+// those edits are merged in at build time (Publish), see mergeRemote() below.
+const BASE = {
   name_en: 'Gangasagar Kirana Stores',
   name_hi: 'गंगासागर किराणा स्टोअर्स',
   short_hi: 'गंगासागर',
@@ -21,7 +23,23 @@ export const SITE = {
   instagramHandle: '@gangasagar_kirana_stores',
   owner: { name_en: 'Gangadhar Nivrutti Uttarwar', name_hi: 'गंगाधर निवृत्ति उत्तरवार', years: 53 },
   head: { name_en: 'Laxmikant Uttarwar', name_hi: 'लक्ष्मीकांत उत्तरवार', years: 28 },
-} as const
+}
+
+type R = Record<string, any>
+function mergeRemote(base: typeof BASE): typeof BASE {
+  const s = ((remote as { settings: R }).settings ?? {}) as R
+  const out = structuredClone(base)
+  if (s.phones) out.phones = { main: s.phones.main || base.phones.main, support: s.phones.support || base.phones.support, owner: s.phones.owner || base.phones.owner }
+  if (Array.isArray(s.emails) && s.emails.length) out.emails = s.emails
+  if (s.hours?.open && s.hours?.close) out.hours = { open: s.hours.open, close: s.hours.close }
+  if (s.address?.line_en) out.address_en = s.address.line_en
+  if (s.address?.line_hi) out.address_hi = s.address.line_hi
+  if (s.address?.maps_url) out.mapsUrl = s.address.maps_url
+  if (s.social?.instagram) out.instagram = s.social.instagram
+  return out
+}
+
+export const SITE = mergeRemote(BASE)
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://gangasagar.pages.dev').replace(/\/$/, '')
 

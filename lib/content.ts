@@ -2,31 +2,17 @@
 // site is rebuilt with the Publish button.
 import { POLICIES, type PolicyKey } from '@/content/policies'
 
+import remote from '@/content/remote.json'
+
 type Bi = { title_en?: string; title_hi?: string; en: string; hi: string }
-let cache: Promise<Record<string, unknown>> | null = null
+const all = (remote as { content: Record<string, unknown> }).content ?? {}
 
-async function contentTable(): Promise<Record<string, unknown>> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  if (!url || !key) return {}
-  try {
-    const r = await fetch(`${url}/rest/v1/content?select=key,value`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, cache: 'no-store' })
-    if (!r.ok) return {}
-    const rows: { key: string; value: unknown }[] = await r.json()
-    return Object.fromEntries(rows.map((x) => [x.key, x.value]))
-  } catch {
-    return {}
-  }
-}
-
-export async function getContent<T>(key: string, fallback: T): Promise<T> {
-  cache ??= contentTable()
-  const all = await cache
+export function getContent<T>(key: string, fallback: T): T {
   const v = all[key]
   return v && typeof v === 'object' ? ({ ...fallback, ...(v as object) } as T) : fallback
 }
 
-export function getPolicy(key: PolicyKey): Promise<Bi> {
+export async function getPolicy(key: PolicyKey): Promise<Bi> {
   return getContent<Bi>(`policy.${key}`, POLICIES[key] as unknown as Bi)
 }
 

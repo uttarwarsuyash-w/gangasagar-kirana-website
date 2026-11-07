@@ -6,6 +6,7 @@ import path from 'node:path'
 const root = path.resolve(import.meta.dirname, '..')
 const run = (f) => execFileSync(process.execPath, [path.join(root, 'scripts', f)], { stdio: 'inherit', cwd: root })
 
+run('fetch-remote.mjs')
 run('fonts.mjs')
 if (!fs.existsSync(path.join(root, 'lib/images.json'))) run('images.mjs')
 const demo = !process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY

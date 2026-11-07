@@ -3,7 +3,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const out = path.resolve(import.meta.dirname, '../out')
-const preview = (process.env.STORE_MODE ?? 'preview') === 'preview'
+let remoteMode
+try {
+  remoteMode = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, '../content/remote.json'), 'utf8')).settings?.store_mode
+} catch {}
+const preview = (process.env.STORE_MODE ?? remoteMode ?? 'preview') === 'preview'
 let n = 0
 function walk(dir) {
   for (const f of fs.readdirSync(dir)) {

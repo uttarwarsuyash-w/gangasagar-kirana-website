@@ -7,7 +7,25 @@ export const LOCALES = ['en', 'hi'] as const
 export type Lang = (typeof LOCALES)[number]
 export const DEFAULT_LANG: Lang = 'en'
 
-export const dictionaries: Record<Lang, Messages> = { en, hi }
+import remote from '@/content/remote.json'
+
+// Admin text overrides (Admin > Site content > Translations), baked in at build time.
+// Stored as flat maps like { "home.headline": "..." } under content keys i18n.en / i18n.hi.
+function applyOverrides(base: Messages, flat: Record<string, string> | undefined): Messages {
+  if (!flat) return base
+  const copy = JSON.parse(JSON.stringify(base))
+  for (const [path, value] of Object.entries(flat)) {
+    if (typeof value !== 'string' || !value.trim()) continue
+    const parts = path.split('.')
+    let o = copy
+    for (const k of parts.slice(0, -1)) o = o?.[k]
+    if (o && typeof o[parts[parts.length - 1]] === 'string') o[parts[parts.length - 1]] = value
+  }
+  return copy
+}
+const C = (remote as { content: Record<string, Record<string, string>> }).content ?? {}
+export const dictionaries: Record<Lang, Messages> = { en: applyOverrides(en, C['i18n.en']), hi: applyOverrides(hi, C['i18n.hi']) }
+export const baseDictionaries: Record<Lang, Messages> = { en, hi }
 export type { Messages }
 
 export function isLang(x: unknown): x is Lang {
