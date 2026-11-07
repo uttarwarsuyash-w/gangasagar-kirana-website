@@ -90,7 +90,7 @@ export function CartDrawer() {
         <div className="flex items-center gap-4 px-5 pt-2 sm:px-6">
           <BagIllustration fill={cart.weight / 5000} />
           <div>
-            <p className="text-[0.95rem] text-muted">{f(t.cart.items, { n: cart.items.length })}</p>
+            <p className="text-[0.95rem] text-muted">{(cart.items.length === 1 ? t.cart.itemOne : f(t.cart.items, { n: cart.items.length }))}</p>
             <p className="font-display text-3xl font-[650] tnum">{grams(cart.weight, lang)}</p>
           </div>
         </div>

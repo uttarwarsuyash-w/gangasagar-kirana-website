@@ -99,7 +99,7 @@ export function Hero({ snacks, poster }: { snacks: HeroSnack[]; poster: string |
         <div className="flex items-start justify-between gap-6">
           <p className="meta max-w-[22ch]">{t.home.eyebrow}</p>
           <p className="hand -rotate-3 text-[1.05rem] text-brand sm:text-[1.25rem]">
-            {lang === 'hi' ? 'से 2005' : 'since 2005'}
+            {lang === 'hi' ? '2005 से' : 'since 2005'}
           </p>
         </div>
         <h1 id="hero-title" className="sr-only">

@@ -53,6 +53,10 @@ export interface Category {
   colour: string
   image_url?: string | null
   sort: number
+  seo_title_en?: string | null
+  seo_title_hi?: string | null
+  seo_description_en?: string | null
+  seo_description_hi?: string | null
 }
 
 export interface Catalogue {

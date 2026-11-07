@@ -51,7 +51,7 @@ export const POUR: Record<string, PourKind> = {
   raisin: { shape: 'lump', colours: ['#a8762a', '#94641e', '#b8862e'], speckle: '#5a3a10', speckleAmount: 0.3, size: 0.32, roughness: 0.4, clearcoat: 0.6 },
   popcorn: { shape: 'popcorn', colours: ['#fbf3dc', '#f6ebcc', '#fff8e6'], speckle: '#e8c46a', speckleAmount: 0.12, size: 0.68, roughness: 0.95 },
   orange_candy: { shape: 'candy', colours: ['#f2701e', '#ee6418', '#f6822e'], size: 0.62, roughness: 0.2, clearcoat: 1, translucent: true },
-  chikki: { shape: 'chikki', colours: ['#7e4519', '#8a4f1e', '#733e16'], speckle: '#e2b57a', speckleAmount: 0.5, size: 0.95, roughness: 0.3, clearcoat: 0.8 },
+  chikki: { shape: 'chikki', colours: ['#6b3713', '#74401a', '#5f3010'], speckle: '#dcae74', speckleAmount: 0.5, size: 0.95, roughness: 0.32, clearcoat: 0.9 },
 }
 
 /** The homepage hero row: the seven products the store photographed. */

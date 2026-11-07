@@ -191,6 +191,7 @@ const hi: Messages = {
     emptyBody: 'होमपेज पर किसी नाश्ते पर टैप करें या शेल्फ़ देखें।',
     browse: 'दुकान देखें',
     items: '{n} चीज़ें',
+    itemOne: '1 चीज़',
     weight: 'वज़न',
     subtotal: 'उप-योग',
     delivery: 'डिलीवरी',

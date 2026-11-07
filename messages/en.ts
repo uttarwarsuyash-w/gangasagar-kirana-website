@@ -191,6 +191,7 @@ const en = {
     emptyBody: 'Tap a snack on the homepage or browse the shelves.',
     browse: 'Browse the shop',
     items: '{n} items',
+    itemOne: '1 item',
     weight: 'Weight',
     subtotal: 'Subtotal',
     delivery: 'Delivery',

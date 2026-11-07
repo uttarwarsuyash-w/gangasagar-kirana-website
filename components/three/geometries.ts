@@ -137,23 +137,19 @@ function candy(k: PourKind) {
 }
 
 function chikki(k: PourKind) {
-  const g = new BoxGeometry(2, 0.42, 1.25, 16, 3, 10)
+  // Rounded slab (proper rounded-box projection) studded with smooth peanut halves on top and bottom.
+  const hx = 1, hy = 0.24, hz = 0.62, r = 0.16
+  const g = new BoxGeometry(hx * 2, hy * 2, hz * 2, 20, 6, 14)
+  const ix = hx - r, iy = hy - r, iz = hz - r
+  const peanutBits = (x: number, z: number) => smooth(Math.max(0, Math.min(1, (noise3(x * 2.4 + 3.1, 0.5, z * 2.4) - 0.1) * 2.5)))
   deform(g, (v) => {
-    // rounded corners
-    const ax = Math.max(0, Math.abs(v.x) - 0.82),
-      az = Math.max(0, Math.abs(v.z) - 0.45)
-    const c = Math.hypot(ax, az)
-    if (c > 0.18) {
-      const s = 0.18 / c
-      v.x = Math.sign(v.x) * (Math.min(Math.abs(v.x), 0.82) + ax * s)
-      v.z = Math.sign(v.z) * (Math.min(Math.abs(v.z), 0.45) + az * s)
-    }
-    // peanut halves studding the top and bottom: smooth rounded bumps
-    const nb = noise3(v.x * 2.6 + 3, 0.5, v.z * 2.6)
-    const bump = smooth(Math.max(0, Math.min(1, (nb - 0.05) * 2.2))) * 0.12
-    if (Math.abs(v.y) > 0.15) v.y += Math.sign(v.y) * bump
+    const qx = Math.max(-ix, Math.min(ix, v.x)), qy = Math.max(-iy, Math.min(iy, v.y)), qz = Math.max(-iz, Math.min(iz, v.z))
+    const nx = v.x - qx, ny = v.y - qy, nz = v.z - qz
+    const l = Math.hypot(nx, ny, nz) || 1
+    v.set(qx + (nx / l) * r, qy + (ny / l) * r, qz + (nz / l) * r)
+    if (Math.abs(ny / l) > 0.7) v.y += Math.sign(v.y) * peanutBits(v.x, v.z) * 0.09
   })
-  return paint(g, k, (v) => smooth(Math.max(0, Math.min(1, (noise3(v.x * 2.6 + 3, 0.5, v.z * 2.6) - 0.05) * 2.2))))
+  return paint(g, k, (v) => (Math.abs(v.y) > hy * 0.8 ? peanutBits(v.x, v.z) : 0))
 }
 
 function popcorn(k: PourKind) {

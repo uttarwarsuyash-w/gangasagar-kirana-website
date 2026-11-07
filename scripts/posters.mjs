@@ -10,6 +10,8 @@ const base = process.argv[2] || 'http://localhost:4321'
 const out = path.join(root, 'assets/renders')
 fs.mkdirSync(out, { recursive: true })
 const cat = JSON.parse(fs.readFileSync(path.join(root, 'seed/catalogue.json'), 'utf8'))
+const snacks = fs.readFileSync(path.join(root, 'lib/snacks.ts'), 'utf8')
+const sizeOf = (k) => Number(new RegExp(`\\b${k}: \\{[^}]*size: ([0-9.]+)`).exec(snacks)?.[1] ?? 0.6)
 const hero = ['peanut', 'chana_salted', 'chana_plain', 'pea_green', 'pea_yellow', 'orange_candy', 'chikki']
 
 const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] })
@@ -22,7 +24,7 @@ async function grab(kind, w, h, scale) {
 }
 const only = process.argv[3]
 for (const k of hero) {
-  if (only && only !== 'hero') break
+  if (only && only !== 'hero' && only !== k) continue
   const png = await grab(k, 1600, 940)
   const meta = await sharp(png).metadata()
   // keep the bottom half where the pile rests
@@ -32,7 +34,7 @@ for (const k of hero) {
 for (const c of cat.categories) {
   if (only && only !== 'cats') break
   if (!c.pour_kind) continue
-  const png = await grab(c.pour_kind, 700, 900, 2.4)
+  const png = await grab(c.pour_kind, 700, 900, (2.4 * Math.pow(0.62 / sizeOf(c.pour_kind), 0.75)).toFixed(2))
   const meta = await sharp(png).metadata()
   const top = Math.round(meta.height * 0.5)
   await sharp(png).extract({ left: 0, top, width: meta.width, height: meta.height - top }).png().toFile(path.join(out, `cat-${c.id}.png`))
