@@ -726,7 +726,8 @@ begin
   if private.txt('turnstile_required', 'false') = 'true' and private.jwt_role() <> 'service_role' then
     perform private.fail('verification_required');
   end if;
-  perform private.hit_rate_limit('enq-ip:' || coalesce(nullif(p ->> 'client_ip', ''), private.client_ip()), 6, 600);
+  -- Only the verifying Edge Function (service role) may tell us the visitor's IP; otherwise use the request's.
+  perform private.hit_rate_limit('enq-ip:' || coalesce(case when private.jwt_role() = 'service_role' then nullif(p ->> 'client_ip', '') end, private.client_ip()), 6, 600);
   if ph is not null then perform private.hit_rate_limit('enq-ph:' || ph, 6, 3600); end if;
   if kind not in ('contact', 'product', 'custom_quantity', 'wholesale') then perform private.fail('bad_kind'); end if;
   if length(coalesce(trim(p ->> 'name'), '')) not between 2 and 80 then perform private.fail('bad_name'); end if;

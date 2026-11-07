@@ -1,4 +1,4 @@
-import remote from '@/content/remote.json'
+import remoteSettings from '@/content/remote-settings.json'
 
 // Verified business facts from the brief (section 2). Admins can change them in Settings;
 // those edits are merged in at build time (Publish), see mergeRemote() below.
@@ -27,7 +27,7 @@ const BASE = {
 
 type R = Record<string, any>
 function mergeRemote(base: typeof BASE): typeof BASE {
-  const s = ((remote as { settings: R }).settings ?? {}) as R
+  const s = (remoteSettings ?? {}) as R
   const out = structuredClone(base)
   if (s.phones) out.phones = { main: s.phones.main || base.phones.main, support: s.phones.support || base.phones.support, owner: s.phones.owner || base.phones.owner }
   if (Array.isArray(s.emails) && s.emails.length) out.emails = s.emails

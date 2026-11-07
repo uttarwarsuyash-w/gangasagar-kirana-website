@@ -23,3 +23,6 @@ if (url && key) {
   }
 }
 fs.writeFileSync(out, JSON.stringify(data, null, 1))
+// Small file for code that also runs in the browser (business details only).
+const keep = ['phones', 'emails', 'hours', 'address', 'social', 'store_mode']
+fs.writeFileSync(path.join(root, 'content/remote-settings.json'), JSON.stringify(Object.fromEntries(Object.entries(data.settings).filter(([k]) => keep.includes(k))), null, 1))

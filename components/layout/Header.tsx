@@ -9,7 +9,7 @@ import { useSession } from '@/components/providers/Session'
 import { useLive } from '@/components/providers/Live'
 import { Lockup } from '@/components/brand/Mark'
 import { BagIcon } from '@/components/ui/Icons'
-import { switchPath, otherLang } from '@/lib/i18n'
+import { switchPath, otherLang } from '@/lib/i18n-core'
 import { SearchDialog } from './SearchDialog'
 import { MobileMenu } from './MobileMenu'
 

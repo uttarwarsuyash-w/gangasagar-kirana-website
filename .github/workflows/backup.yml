@@ -1,0 +1,45 @@
+# Nightly database backup to a private GitHub repository. Also keeps the free Supabase project
+# active (free projects pause after a week without activity).
+# Secrets (GitHub > Settings > Secrets and variables > Actions):
+#   SUPABASE_DB_URL     Supabase > Project Settings > Database > Connection string (URI, session pooler)
+#   BACKUP_REPO         e.g. uttarwarsuyash-w/gangasagar-backups (a separate private repo)
+#   BACKUP_REPO_TOKEN   fine-grained token with Contents: read/write on that repo only
+#   SUPABASE_URL, SUPABASE_ANON_KEY (for the keep-alive ping)
+name: Nightly backup
+on:
+  schedule:
+    - cron: '30 21 * * *' # 03:00 IST
+  workflow_dispatch:
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep Supabase awake
+        run: curl -sf -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/public_settings" -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" -H "Content-Type: application/json" -d '{"p":{}}' > /dev/null
+      - name: Install Postgres client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y -qq postgresql-client-17
+      - name: Dump database
+        env:
+          DB: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          mkdir -p dump
+          /usr/lib/postgresql/17/bin/pg_dump "$DB" --schema=public --schema=private --no-owner --no-privileges --format=plain | gzip -9 > dump/gangasagar-$(date -u +%Y-%m-%d).sql.gz
+          ls -la dump
+      - name: Push to backup repository
+        env:
+          TOKEN: ${{ secrets.BACKUP_REPO_TOKEN }}
+          REPO: ${{ secrets.BACKUP_REPO }}
+        run: |
+          git clone --depth 1 "https://x-access-token:${TOKEN}@github.com/${REPO}.git" backups
+          mkdir -p backups/daily
+          cp dump/*.sql.gz backups/daily/
+          cd backups
+          # keep the last 45 daily dumps
+          ls -1t daily/*.sql.gz | tail -n +46 | xargs -r git rm -q
+          git add daily
+          git -c user.name="backup-bot" -c user.email="backup@users.noreply.github.com" commit -qm "Backup $(date -u +%F)" || exit 0
+          git push -q

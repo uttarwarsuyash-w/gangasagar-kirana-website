@@ -1,6 +1,7 @@
 'use client'
 import { createContext, useContext } from 'react'
-import { fmt, pick, type Lang, type Messages } from '@/lib/i18n'
+import { fmt, pick, type Lang } from '@/lib/i18n-core'
+import type { Messages } from '@/messages/en'
 
 interface Ctx {
   lang: Lang

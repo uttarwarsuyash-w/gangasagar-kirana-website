@@ -47,15 +47,19 @@ describe('anonymous visitors', () => {
     await expect(anon.rpc('admin_dashboard')).rejects.toThrow(/permission denied/)
     await expect(anon.rpc('place_order', {})).rejects.toThrow(/permission denied/)
   })
-  it('can send an enquiry, with a rate limit', async () => {
+  it('validates enquiries', async () => {
     const anon = client(db, ANON)
-    const body = { kind: 'contact', name: 'Visitor', phone: '9000000001', message: 'Do you sell jaggery in 30 kg?', client_ip: '1.2.3.4' }
-    for (let i = 0; i < 6; i++) await anon.rpc('submit_enquiry', body)
-    await expect(anon.rpc('submit_enquiry', body)).rejects.toThrow('rate_limited')
-    await expect(anon.rpc('submit_enquiry', { kind: 'contact', name: 'X', phone: '123', client_ip: '5.5.5.5' })).rejects.toThrow('bad_name')
-    await expect(
-      anon.rpc('submit_enquiry', { kind: 'custom_quantity', name: 'Ravi', phone: '9000000002', product_id: 'raw-peanuts', quantity_g: 400, client_ip: '6.6.6.6' }),
-    ).rejects.toThrow('custom_below_minimum')
+    await expect(anon.rpc('submit_enquiry', { kind: 'contact', name: 'X', phone: '123' })).rejects.toThrow('bad_name')
+    await expect(anon.rpc('submit_enquiry', { kind: 'custom_quantity', name: 'Ravi', phone: '9000000002', product_id: 'raw-peanuts', quantity_g: 400 })).rejects.toThrow(
+      'custom_below_minimum',
+    )
+  })
+  it('rate-limits enquiries, and ignores an IP sent by the browser', async () => {
+    const anon = client(db, ANON)
+    const body = { kind: 'contact', name: 'Visitor', phone: '9000000001', message: 'Do you sell jaggery in 30 kg?' }
+    // Failed submissions roll back, so only saved enquiries count.
+    for (let i = 0; i < 6; i++) await anon.rpc('submit_enquiry', { ...body, client_ip: `9.9.9.${i}` })
+    await expect(anon.rpc('submit_enquiry', { ...body, client_ip: '1.2.3.4' })).rejects.toThrow('rate_limited')
   })
   it('requires Turnstile verification when switched on', async () => {
     await db.exec(`update settings set value = 'true' where key = 'turnstile_required'`)

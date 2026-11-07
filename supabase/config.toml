@@ -1,0 +1,11 @@
+# Supabase CLI config (only needed if you deploy Edge Functions with the CLI).
+project_id = "gangasagar"
+
+[functions.publish]
+verify_jwt = true
+
+[functions.notify]
+verify_jwt = true
+
+[functions.submit-enquiry]
+verify_jwt = false
